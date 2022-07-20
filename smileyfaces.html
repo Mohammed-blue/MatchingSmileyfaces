@@ -1,0 +1,117 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching Game</title>
+
+    <style>
+        img {
+            position: absolute;
+        }
+        div {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+        }
+        #rightSide {
+            left: 500px;
+            border-left: 1px solid;
+        }
+        #newDiv {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Matching Game</h1>
+    <section id="newDiv">
+        <p>Click on the extra smiling face on the left.</p>
+    </section>
+    <!-- <p>Click on the extra smiling face on the left. <input id="restart" type="button" value="Restart Game"></p> -->
+    <div id="leftSide"></div>
+    <div id="rightSide"></div>
+
+    <script>
+        window.addEventListener('load', generateFaces);
+        let numberOfFaces = 5;
+        let numRounds = 0;
+        const theLeftSide = document.querySelector('#leftSide');
+        const theRightSide = document.querySelector('#rightSide');
+
+        // Buttons
+        // const myBtn = document.querySelector('#restart')
+        const myBtn = document.querySelector('#newDiv');
+        const easyBtn = document.querySelector('#easyBtn');
+        const normalBtn = document.querySelector('#normalBtn');
+        const hardBtn = document.querySelector('#hardBtn');
+
+        function generateFaces() {
+            for (let i = 0; i < numberOfFaces; i++) {
+                const face = document.createElement('img');
+                face.src = '/images/smile.png';
+                let randomTop = Math.floor(Math.random() * 400) + 1;
+                let randomLeft = Math.floor(Math.random() * 400) + 1;
+
+                face.style.top = randomTop + 'px';
+                face.style.left = randomLeft + 'px';
+                theLeftSide.appendChild(face);
+                }
+
+                const leftSideImages = theLeftSide.cloneNode(true);
+                let removedChild = leftSideImages.removeChild(leftSideImages.lastChild); //added removedChild variable
+
+                theRightSide.appendChild(leftSideImages)
+
+                theLeftSide.lastChild.addEventListener('click', nextLevel)
+                // let theBody = document.body.addEventListener('click', gameOver); why storing it in a variable wont allow it to show in the web.
+                document.body.addEventListener('click', gameOver);
+                console.log(theLeftSide.lastChild);
+            }
+
+            function nextLevel() {
+                event.stopPropagation();
+                numberOfFaces += 5;
+                numRounds ++;
+                while (theLeftSide.firstChild) {
+                    theLeftSide.removeChild(theLeftSide.firstChild);
+                }
+                while (theRightSide.firstChild) {
+                    theRightSide.removeChild(theRightSide.lastChild);
+                }
+                generateFaces();
+            }
+
+                function gameOver() {
+                alert('Game Over\nYou have lasted: ' + numRounds + ' rounds');
+                document.body.removeEventListener('click', gameOver);
+                theLeftSide.lastChild.removeEventListener('click', nextLevel);
+            }
+
+            // create and append a restart button
+            let newNode = document.createElement('button');
+                newNode.innerText = 'Restart Game';
+                newNode.addEventListener('click', restartBtn);
+
+                myBtn.appendChild(newNode);
+
+                function restartBtn() {
+                event.stopPropagation();
+                numberOfFaces = 5;
+                while (theLeftSide.firstChild) {
+                    theLeftSide.removeChild(theLeftSide.firstChild)
+                }
+
+                while (theRightSide.firstChild) {
+                    theRightSide.removeChild(theRightSide.lastChild);
+                }
+
+                generateFaces();
+            }
+    </script>
+</body>
+</html>
