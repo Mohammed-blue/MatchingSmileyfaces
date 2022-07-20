@@ -1,0 +1,34 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #031321;
+    font-family: consolas;
+}
+h1 {
+    color: rgb(85, 114, 47);
+}
+button {
+    border-radius: 20px;
+    border: none;
+    font-size: 18px
+
+}
+#btn {
+    margin-top: 10em;
+    margin-left: -12em;
+    padding: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #255784;
+    background: #2196f3;
+    box-shadow: 0 0 10px #2196f3, 0 0 40px #2196f3, 0 0 80px #2196f3;
+}
+#btn:hover {
+    background:#ff96ad;
+    box-shadow: 0 0 5px #ff96ad, 0 0 25px #ff96ad,  0 0 50px #ff96ad,  0 0 200px #ff96ad;
+}
